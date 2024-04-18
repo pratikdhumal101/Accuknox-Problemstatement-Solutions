@@ -1,0 +1,22 @@
+# Use Ubuntu as the base image
+FROM ubuntu:latest
+
+# Update package lists and install necessary packages
+RUN apt-get update && \
+    apt-get install -y fortune cowsay netcat-openbsd && \
+    apt-get clean
+
+# Copy the shell script into the container
+COPY wisecow.sh /usr/src/app/
+
+# Set the working directory
+WORKDIR /usr/src/app/
+
+# Make the shell script executable
+RUN chmod +x wisecow.sh
+
+# Expose the port used by the application (optional, if needed)
+# EXPOSE 4499
+
+# Define the command to run the script
+CMD ["./wisecow.sh"]
